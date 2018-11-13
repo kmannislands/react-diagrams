@@ -32,9 +32,18 @@ export default () => {
 	//5) load model into engine
 	engine.setDiagramModel(model);
 
+	const handleZoomIn = () => {
+		const initialZoom = model.getZoomLevel();
+		model.setZoomLevel(initialZoom * 1.25);
+
+		engine.setDiagramModel(model);
+		// force repaint
+		engine.repaintCanvas();
+	}
+
 	//6) render the diagram!
 	return (
-		<DemoWorkspaceWidget buttons={<button onClick={() => engine.zoomToFit()}>Zoom to fit</button>}>
+		<DemoWorkspaceWidget buttons={<button onClick={() => handleZoomIn()}>Zoom in</button>}>
 			<DiagramWidget className="srd-demo-canvas" diagramEngine={engine} />
 		</DemoWorkspaceWidget>
 	);
